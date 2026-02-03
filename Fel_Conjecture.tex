@@ -1,0 +1,118 @@
+\documentclass[12pt]{article}
+\begin{document}
+
+\begin{definition}[Numerical semigroup]
+A \emph{numerical semigroup} is a subset $S\subseteq \mathbb{N}=\{0,1,2,\dots\}$ such that:
+(i) $0\in S$; (ii) if $a,b\in S$ then $a+b\in S$; and (iii) $\Delta:=\mathbb{N}\setminus S$ is finite.
+The finite set $\Delta$ is called the set of \emph{gaps}.
+\end{definition}
+
+\begin{definition}[Gap ``moments'']
+For an integer $r\ge 0$, define the $r$th \emph{gap power sum} (or \emph{genus moment})
+\[
+G_r(S):=\sum_{g\in \Delta} g^r.
+\]
+\end{definition}
+
+\subsection{Hilbert series and the numerator polynomial}
+Fix a numerical semigroup $S=\langle d_1,\dots,d_m\rangle$ with a generating set of positive integers
+$d_1,\dots,d_m$ and $\gcd(d_1,\dots,d_m)=1$.
+Define its (ordinary) generating function
+\[
+H_S(z) := \sum_{s\in S} z^s.
+\]
+Because $\Delta$ is finite, the \emph{gap series}
+\[
+\Phi_S(z):=\sum_{g\in \Delta} z^g
+\]
+is a polynomial in $z$ (finite sum).
+
+\begin{lemma}[Semigroup--gap decomposition]
+As a formal power series identity,
+\begin{equation}\label{eq:HS-Phi}
+H_S(z)+\Phi_S(z)=\sum_{n\ge 0}z^n=\frac{1}{1-z}.
+\end{equation}
+\end{lemma}
+
+A fact is that $H_S$ has the rational form
+\begin{equation}\label{eq:rational-form}
+H_S(z)=\frac{Q_S(z)}{\prod_{i=1}^m(1-z^{d_i})},
+\end{equation}
+where $Q_S(z)$ is a polynomial with integer coefficients called the \emph{Hilbert numerator}.
+
+\begin{definition}[Product polynomial]
+Let
+\[
+P_S(z):=\prod_{i=1}^m(1-z^{d_i}),\qquad \pi_m:=\prod_{i=1}^m d_i.
+\]
+\end{definition}
+
+\begin{lemma}[Numerator identity]\label{lem:Q-identity}
+Assuming \eqref{eq:rational-form}, we have the exact identity of formal power series
+\begin{equation}\label{eq:Q-identity}
+Q_S(z)=\frac{P_S(z)}{1-z}-P_S(z)\,\Phi_S(z).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Multiply \eqref{eq:HS-Phi} by $P_S(z)$, then substitute $P_S(z)H_S(z)=Q_S(z)$ from \eqref{eq:rational-form}.
+\end{proof}
+
+\begin{definition}[Alternating power sums of syzygy degrees]\label{def:Cn}
+Write (the constant coefficient is always 1):
+\[Q_S(z) = 1 - \sum c_j z^j\]
+Then for $n\ge 0$ define
+\begin{equation}\label{eq:Cn-def}
+C_n(S) := \sum c_j j^n
+\end{equation}
+\end{definition}
+
+For $n=m+p\ge m$ define positive invariants $K_p(S)$ such that
+\begin{equation}\label{eq:Cn-Kp}
+C_{m+p}(S)=(-1)^m \frac{(m+p)!}{p!}\,\pi_m\, K_p(S)\qquad (p\ge 0).
+\end{equation}
+
+\begin{definition}[$T_n(\sigma)$ by generating function]\label{def:Tn-sigma}
+Define the formal power series
+\begin{equation}\label{eq:A(t)}
+A(t):=\prod_{i=1}^m \frac{e^{d_i t}-1}{d_i t}\in \mathbb{Q}[[t]].
+\end{equation}
+Define numbers
+\begin{equation}\label{eq:Tn-sigma-def}
+T_n(\sigma):=n!\,[t^n]A(t),
+\end{equation}
+i.e.\ $A(t)=\sum_{n\ge 0} T_n(\sigma)\,\frac{t^n}{n!}$.
+\end{definition}
+
+\begin{definition}[$T_n(\delta)$ by generating function]\label{def:Tn-delta}
+Define
+\begin{equation}\label{eq:B(t)}
+B(t):=\frac{t}{e^t-1}\,A(t)\in \mathbb{Q}[[t]].
+\end{equation}
+Define
+\begin{equation}\label{eq:Tn-delta-def}
+T_n(\delta):=\frac{n!}{2^n}\,[t^n]B(t),
+\end{equation}
+i.e.\ $B(t)=\sum_{n\ge 0} 2^n \cdot T_n(\delta)\,\frac{t^n}{n!}$.
+\end{definition}
+
+\subsection{Statement of Fel's conjecture}
+\begin{conjecture}[Fel]\label{conj:Fel}
+With the definitions above, for every $p\ge 0$ one has
+\begin{equation}\label{eq:Fel-conj}
+K_p(S)=\sum_{r=0}^{p} \binom{p}{r}\,T_{p-r}(\sigma)\,G_r(S)\;+\;\frac{2^{p+1}}{p+1}\,T_{p+1}(\delta).
+\end{equation}
+\end{conjecture}
+
+\subsection{Low-lying examples: Evidence}
+\paragraph{Example 1: $S=\langle 3,5\rangle$.}
+The gaps are $\Delta=\{1,2,4,7\}$, hence $G_0=4$, $G_1=14$, $G_2=70$, etc.
+The Hilbert numerator is $Q(z)=1-z^{15}$, so $C_n(S)=15^n$ and \eqref{eq:Cn-Kp} gives
+$K_0=\frac{15}{2}$, $K_1=\frac{75}{2}$, $K_2=\frac{1125}{4}$, etc.
+Plugging $\sigma_1=8$, $\sigma_2=34$, $\delta_1=(8-1)/2=7/2$, etc.\ into \eqref{eq:Fel-conj}
+recovers the same values.
+
+\paragraph{Example 2: $S=\langle 4,5,6\rangle$.}
+One finds $Q(z)=1-z^{10}-z^{12}+z^{22}$ and (using \eqref{eq:Cn-Kp}) $K_0=11$, $K_1=212/3$, $K_2=2002/3$, \dots.
+The conjectural right side \eqref{eq:Fel-conj} agrees with these values.
+
+\end{document}
