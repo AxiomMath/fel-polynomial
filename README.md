@@ -14,8 +14,8 @@ The formal proofs provided in this work were developed and verified using **Lean
 
 ## Output files (Run with Lean 4.26.0)
 
-- `problem.lean`: translation of the problem statement into formal language (Lean)
-- `solution.lean`: solution in formal language (Lean)
+- `FelConjecture/problem.lean`: translation of the problem statement into formal language (Lean)
+- `FelConjecture/solution.lean`: solution in formal language (Lean)
 
 ## Miscellaneous files (not used or written by AxiomProver)
 
