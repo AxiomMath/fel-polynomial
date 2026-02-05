@@ -17,3 +17,4 @@ rev = "v4.26.0"
 
 [[lean_lib]]
 name = "FelConjecture"
+globs = ["FelConjecture.+"]
