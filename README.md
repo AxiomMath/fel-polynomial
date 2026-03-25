@@ -8,18 +8,18 @@ The formal proofs provided in this work were developed and verified using **Lean
 
 ## Input files
 
-- `Fel_Conjecture.tex`: natural language problem statement
-- `task.md`: description of the task to be completed (deferring to `Fel_Conjecture.tex`)
-- `.environment`: specifies the Lean version
+- [`Fel_Conjecture.tex`](Fel_Conjecture.tex): natural language problem statement
+- [`task.md`](task.md): description of the task to be completed (deferring to [`Fel_Conjecture.tex`](Fel_Conjecture.tex))
+- [`.environment`](.environment): specifies the Lean version
 
 ## Output files (Run with Lean 4.26.0)
 
-- `FelConjecture/problem.lean`: translation of the problem statement into formal language (Lean)
-- `FelConjecture/solution.lean`: solution in formal language (Lean)
+- [`FelConjecture/problem.lean`](FelConjecture/problem.lean): translation of the problem statement into formal language (Lean)
+- [`FelConjecture/solution.lean`](FelConjecture/solution.lean): solution in formal language (Lean)
 
 ## Miscellaneous files (not used or written by AxiomProver)
 
-- `examples.sage`: used to verify the worked examples in the paper's exposition
+- [`examples.sage`](examples.sage): used to verify the worked examples in the paper's exposition
 
 ## License
 
