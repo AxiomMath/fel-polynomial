@@ -1,0 +1,15 @@
+{
+  "challenge_module": "FelConjecture.problem",
+  "solution_module": "FelConjecture.solution",
+  "theorem_names": [
+    "NumericalSemigroup.semigroupGapDecomposition",
+    "NumericalSemigroupGenerators.numeratorIdentity",
+    "fels_conjecture"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": false
+}
