@@ -579,23 +579,23 @@ lemma coeff_A_mul_E {S : NumericalSemigroup} (G : NumericalSemigroupGenerators S
     (PowerSeries.coeff p) (G.A_series * PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ)) =
     ∑ r ∈ Finset.range (p + 1), (PowerSeries.coeff (p - r)) G.A_series * (∑ g ∈ S.gaps, (g : ℚ)^r / (r.factorial : ℚ)) := by
   have h₁ : (PowerSeries.coeff p) (G.A_series * PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ)) =
-      ∑ ij ∈ Finset.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (PowerSeries.coeff ij.2 (PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ))) := by
+      ∑ ij ∈ Finset.HasAntidiagonal.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (PowerSeries.coeff ij.2 (PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ))) := by
     rw [PowerSeries.coeff_mul]
-  have h₂ : ∑ ij ∈ Finset.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (PowerSeries.coeff ij.2 (PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ))) =
+  have h₂ : ∑ ij ∈ Finset.HasAntidiagonal.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (PowerSeries.coeff ij.2 (PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ))) =
       ∑ r ∈ Finset.range (p + 1), (PowerSeries.coeff (p - r)) G.A_series * (∑ g ∈ S.gaps, (g : ℚ)^r / (r.factorial : ℚ)) := by
-    have h₃ : ∑ ij ∈ Finset.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (PowerSeries.coeff ij.2 (PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ))) =
-        ∑ ij ∈ Finset.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (∑ g ∈ S.gaps, (g : ℚ)^ij.2 / (ij.2.factorial : ℚ)) := by
+    have h₃ : ∑ ij ∈ Finset.HasAntidiagonal.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (PowerSeries.coeff ij.2 (PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ))) =
+        ∑ ij ∈ Finset.HasAntidiagonal.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (∑ g ∈ S.gaps, (g : ℚ)^ij.2 / (ij.2.factorial : ℚ)) := by
       apply Finset.sum_congr rfl
       intro ij _
       rw [PowerSeries.coeff_mk]
     rw [h₃]
     apply Eq.symm
     apply Finset.sum_bij (fun (r : ℕ) _ => ⟨p - r, r⟩)
-    <;> simp_all [Finset.mem_antidiagonal, Finset.mem_range, Nat.lt_succ_iff]
+    <;> simp_all [Finset.HasAntidiagonal.mem_antidiagonal, Finset.mem_range, Nat.lt_succ_iff]
     <;> (try ring_nf at *)
     <;> (try omega)
   calc
-    (PowerSeries.coeff p) (G.A_series * PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ)) = ∑ ij ∈ Finset.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (PowerSeries.coeff ij.2 (PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ))) := by rw [h₁]
+    (PowerSeries.coeff p) (G.A_series * PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ)) = ∑ ij ∈ Finset.HasAntidiagonal.antidiagonal p, (PowerSeries.coeff ij.1) G.A_series * (PowerSeries.coeff ij.2 (PowerSeries.mk fun n => ∑ g ∈ S.gaps, (g : ℚ)^n / (n.factorial : ℚ))) := by rw [h₁]
     _ = ∑ r ∈ Finset.range (p + 1), (PowerSeries.coeff (p - r)) G.A_series * (∑ g ∈ S.gaps, (g : ℚ)^r / (r.factorial : ℚ)) := by rw [h₂]
 
 lemma sum_swap_gaps_range {S : NumericalSemigroup} (G : NumericalSemigroupGenerators S) (p : ℕ) :
@@ -1519,7 +1519,7 @@ lemma sum_extend_to_deg_sum (PQ : Polynomial ℤ) (n : ℕ) :
 lemma convolution_sum_eq (P Q : Polynomial ℤ) (n : ℕ) :
     ∑ j ∈ Finset.range ((P * Q).natDegree + 1), ((P * Q).coeff j : ℚ) * (j : ℚ)^n =
     ∑ j ∈ Finset.range (P.natDegree + Q.natDegree + 1),
-      ∑ ab ∈ Finset.antidiagonal j, (P.coeff ab.1 : ℚ) * (Q.coeff ab.2 : ℚ) * ((ab.1 : ℚ) + ab.2)^n := by
+      ∑ ab ∈ Finset.HasAntidiagonal.antidiagonal j, (P.coeff ab.1 : ℚ) * (Q.coeff ab.2 : ℚ) * ((ab.1 : ℚ) + ab.2)^n := by
   have h_deg : (P * Q).natDegree ≤ P.natDegree + Q.natDegree := Polynomial.natDegree_mul_le
   rw [exp_poly_sub_sum_extend (P * Q) (P.natDegree + Q.natDegree + 1) n (by omega)]
   apply Finset.sum_congr rfl
@@ -1545,15 +1545,15 @@ lemma convolution_sum_eq (P Q : Polynomial ℤ) (n : ℕ) :
 
 lemma rectangle_subset_triangle (P Q : Polynomial ℤ) :
     Finset.range (P.natDegree + 1) ×ˢ Finset.range (Q.natDegree + 1) ⊆
-    (Finset.range (P.natDegree + Q.natDegree + 1)).biUnion Finset.antidiagonal := by
+    (Finset.range (P.natDegree + Q.natDegree + 1)).biUnion Finset.HasAntidiagonal.antidiagonal := by
   intro ab hab
   simp only [Finset.mem_product, Finset.mem_range] at hab
-  simp only [Finset.mem_biUnion, Finset.mem_range, Finset.mem_antidiagonal]
+  simp only [Finset.mem_biUnion, Finset.mem_range, Finset.HasAntidiagonal.mem_antidiagonal]
   refine' ⟨ab.1 + ab.2, _, rfl⟩
   omega
 
 lemma term_vanishes_outside_rectangle (P Q : Polynomial ℤ) (n : ℕ) (ab : ℕ × ℕ)
-    (_h_in_tri : ab ∈ (Finset.range (P.natDegree + Q.natDegree + 1)).biUnion Finset.antidiagonal)
+    (_h_in_tri : ab ∈ (Finset.range (P.natDegree + Q.natDegree + 1)).biUnion Finset.HasAntidiagonal.antidiagonal)
     (h_not_rect : ab ∉ Finset.range (P.natDegree + 1) ×ˢ Finset.range (Q.natDegree + 1)) :
     (P.coeff ab.1 : ℚ) * (Q.coeff ab.2 : ℚ) * ((ab.1 : ℚ) + ab.2)^n = 0 := by
   have h₁ : ab.1 > P.natDegree ∨ ab.2 > Q.natDegree := by
@@ -1580,17 +1580,17 @@ lemma term_vanishes_outside_rectangle (P Q : Polynomial ℤ) (n : ℕ) (ab : ℕ
     simp
 
 lemma pairwiseDisjoint_antidiagonal (s : Finset ℕ) :
-    (s : Set ℕ).PairwiseDisjoint Finset.antidiagonal := by
+    (s : Set ℕ).PairwiseDisjoint Finset.HasAntidiagonal.antidiagonal := by
   intro j₁ _ j₂ _ hne
   rw [Function.onFun, Finset.disjoint_left]
   intro x hx₁ hx₂
-  rw [Finset.mem_antidiagonal] at hx₁ hx₂
+  rw [Finset.HasAntidiagonal.mem_antidiagonal] at hx₁ hx₂
   exact hne (hx₁.symm.trans hx₂)
 
 lemma nested_sum_eq_biUnion_sum (P Q : Polynomial ℤ) (n : ℕ) :
     ∑ j ∈ Finset.range (P.natDegree + Q.natDegree + 1),
-      ∑ ab ∈ Finset.antidiagonal j, (P.coeff ab.1 : ℚ) * (Q.coeff ab.2 : ℚ) * ((ab.1 : ℚ) + ab.2)^n =
-    ∑ ab ∈ (Finset.range (P.natDegree + Q.natDegree + 1)).biUnion Finset.antidiagonal,
+      ∑ ab ∈ Finset.HasAntidiagonal.antidiagonal j, (P.coeff ab.1 : ℚ) * (Q.coeff ab.2 : ℚ) * ((ab.1 : ℚ) + ab.2)^n =
+    ∑ ab ∈ (Finset.range (P.natDegree + Q.natDegree + 1)).biUnion Finset.HasAntidiagonal.antidiagonal,
       (P.coeff ab.1 : ℚ) * (Q.coeff ab.2 : ℚ) * ((ab.1 : ℚ) + ab.2)^n := by
   exact (Finset.sum_biUnion (pairwiseDisjoint_antidiagonal _)).symm
 
@@ -1604,7 +1604,7 @@ lemma product_sum_eq_nested (P Q : Polynomial ℤ) (n : ℕ) :
 
 lemma triangular_to_rectangular_sum (P Q : Polynomial ℤ) (n : ℕ) :
     ∑ j ∈ Finset.range (P.natDegree + Q.natDegree + 1),
-      ∑ ab ∈ Finset.antidiagonal j, (P.coeff ab.1 : ℚ) * (Q.coeff ab.2 : ℚ) * ((ab.1 : ℚ) + ab.2)^n =
+      ∑ ab ∈ Finset.HasAntidiagonal.antidiagonal j, (P.coeff ab.1 : ℚ) * (Q.coeff ab.2 : ℚ) * ((ab.1 : ℚ) + ab.2)^n =
     ∑ a ∈ Finset.range (P.natDegree + 1),
       ∑ b ∈ Finset.range (Q.natDegree + 1),
         (P.coeff a : ℚ) * (Q.coeff b : ℚ) * ((a : ℚ) + b)^n := by
@@ -1658,17 +1658,21 @@ lemma coeff_one_sub_exp (n : ℕ) :
   · simp [h]
   · ring
 
+private lemma sum_eq_add_sum_diff_singleton {s : Finset ℕ} {i : ℕ} (h : i ∈ s) (f : ℕ → ℚ) :
+    ∑ x ∈ s, f x = f i + ∑ x ∈ s \ {i}, f x := by
+  rw [Finset.sdiff_singleton_eq_erase, Finset.add_sum_erase s f h]
+
 lemma binomial_sum_minus_j_pow (j n : ℕ) :
     (∑ k ∈ Finset.range (n + 1), if k = 0 then 0 else (n.choose k : ℚ) * (j : ℚ)^(n - k)) =
     ((j : ℚ) + 1)^n - (j : ℚ)^n := by
   have h := add_pow (1 : ℚ) (j : ℚ) n
   simp only [one_pow, add_comm] at h
-  rw [Finset.sum_eq_add_sum_diff_singleton (Finset.mem_range.mpr (Nat.zero_lt_succ n))]
+  rw [sum_eq_add_sum_diff_singleton (Finset.mem_range.mpr (Nat.zero_lt_succ n))]
   simp only [↓reduceIte, zero_add]
   have hne : ∀ x ∈ (Finset.range n.succ \ {0}), x ≠ 0 := by
     simp [Finset.mem_sdiff, Finset.mem_singleton]
   rw [Finset.sum_congr rfl (fun x hx => if_neg (hne x hx))]
-  rw [Finset.sum_eq_add_sum_diff_singleton (Finset.mem_range.mpr (Nat.zero_lt_succ n))] at h
+  rw [sum_eq_add_sum_diff_singleton (Finset.mem_range.mpr (Nat.zero_lt_succ n))] at h
   simp only [Nat.choose_zero_right, Nat.cast_one, one_mul, Nat.sub_zero] at h
   calc
     ∑ k ∈ Finset.range n.succ \ {0}, (n.choose k : ℚ) * (j : ℚ)^(n - k)
@@ -1999,7 +2003,6 @@ lemma hilbertNumerator_coeff_at_jstar {S : NumericalSemigroup} (G : NumericalSem
     rw [h1, NumericalSemigroupGenerators.sum_coeff_eq_eval_one G, NumericalSemigroupGenerators.productPolynomial_eval_one G]
   rw [hcoeff, h1, zero_sub]
   have hgap := gap_sum_at_jstar G hnonempty
-  simp only at hgap
   rw [hgap, neg_neg_one_pow_eq]
 
 lemma neg_one_pow_ne_zero' (m : ℕ) : ((-1 : ℤ) ^ (m + 1)) ≠ 0 := by
