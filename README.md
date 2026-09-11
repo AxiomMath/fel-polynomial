@@ -4,7 +4,7 @@
 
 These files accompany the paper [arXiv:2602.03716](https://arxiv.org/abs/2602.03716).
 
-The formal proofs provided in this work were developed and verified using **Lean 4.26.0**. Compatibility with earlier or later versions is not guaranteed due to the evolving nature of the Lean 4 compiler and its core libraries.
+The formal proofs provided in this work were developed and verified using **Lean 4.34.0-rc2**. Compatibility with earlier or later versions is not guaranteed due to the evolving nature of the Lean 4 compiler and its core libraries.
 
 ## Input files
 
@@ -12,7 +12,7 @@ The formal proofs provided in this work were developed and verified using **Lean
 - [`task.md`](task.md): description of the task to be completed (deferring to [`Fel_Conjecture.tex`](Fel_Conjecture.tex))
 - [`.environment`](.environment): specifies the Lean version
 
-## Output files (Run with Lean 4.26.0)
+## Output files (Run with Lean 4.34.0-rc2)
 
 - [`FelConjecture/problem.lean`](FelConjecture/problem.lean): translation of the problem statement into formal language (Lean)
 - [`FelConjecture/solution.lean`](FelConjecture/solution.lean): solution in formal language (Lean)
